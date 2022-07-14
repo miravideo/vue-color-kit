@@ -55,7 +55,6 @@ export default defineComponent({
         }
         this.isOpenSucker = true
         this.$emit('openSucker', true)
-        // @ts-ignore
         this.suckerPreview = document.createElement('canvas');
         this.suckerPreview.width = this.previewSize;
         this.suckerPreview.height = this.previewSize;
@@ -90,7 +89,8 @@ export default defineComponent({
         }
       }
     },
-    getColor(x, y) {
+    getColor(x:number, y:number) {
+      // @ts-ignore
       const ctx = this.suckerCanvas.getContext('2d')
       const imgData = ctx.getImageData(
           Math.min(x, this.width - 1),

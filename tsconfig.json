@@ -13,7 +13,7 @@
     "allowJs": false,
 
     "noUnusedLocals": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "noImplicitReturns": true,

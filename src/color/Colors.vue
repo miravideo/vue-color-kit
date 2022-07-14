@@ -37,7 +37,6 @@ export default defineComponent({
     },
     colorsDefault: {
       type: Array,
-      default: () => [],
     },
     colorsHistoryKey: {
       type: String,
