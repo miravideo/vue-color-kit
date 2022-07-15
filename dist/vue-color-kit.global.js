@@ -539,7 +539,6 @@ var VueColorKit = (function (exports, vue) {
   script$3.render = render$3
   script$3.__file = 'src/color/Preview.vue'
 
-  // import imgSucker from '../img/sucker.png'
   var script$4 = vue.defineComponent({
     props: {
       suckerCanvas: {
@@ -636,18 +635,21 @@ var VueColorKit = (function (exports, vue) {
           this.keydownHandler({ keyCode: 27 })
         }
       },
+      destorySucker() {
+        this.isOpenSucker = false
+        this.$emit('openSucker', false)
+        document.removeEventListener('keydown', this.keydownHandler)
+        if (this.suckerPreview) {
+          // @ts-ignore
+          this.suckerPreview.removeEventListener('click', this.select)
+          this.container.removeChild(this.suckerPreview)
+          this.suckerPreview = null
+        }
+      },
       keydownHandler(e) {
         // esc
         if (e.keyCode === 27) {
-          this.isOpenSucker = false
-          this.$emit('openSucker', false)
-          document.removeEventListener('keydown', this.keydownHandler)
-          this.suckerPreview.removeEventListener('click', this.select)
-          if (this.suckerPreview) {
-            // @ts-ignore
-            this.container.removeChild(this.suckerPreview)
-            this.suckerPreview = null
-          }
+          this.destorySucker()
         }
       },
       getColor(x, y) {
@@ -667,6 +669,9 @@ var VueColorKit = (function (exports, vue) {
         a = parseFloat((a / 255).toFixed(2))
         this.$emit('selectSucker', { r, g, b, a })
       },
+    },
+    unmounted() {
+      this.destorySucker()
     },
   })
 

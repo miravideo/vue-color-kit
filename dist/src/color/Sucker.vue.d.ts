@@ -30,6 +30,7 @@ declare const _default: import('vue').DefineComponent<
   {},
   {
     openSucker(): void
+    destorySucker(): void
     keydownHandler(e: any): void
     getColor(
       x: number,

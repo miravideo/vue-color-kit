@@ -16,7 +16,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-// import imgSucker from '../img/sucker.png'
 export default defineComponent({
   props: {
     suckerCanvas: {
@@ -44,6 +43,7 @@ export default defineComponent({
       this.container = document.body;
     });
   },
+
   watch: {
     suckerPosition: function(val) {
       if (!this.isOpenSucker || !this.suckerPosition || (this.suckerPosition.length !== 4) || !this.suckerCanvas) return
@@ -113,18 +113,21 @@ export default defineComponent({
         this.keydownHandler({ keyCode: 27 })
       }
     },
+    destorySucker() {
+      this.isOpenSucker = false
+      this.$emit('openSucker', false)
+      document.removeEventListener('keydown', this.keydownHandler)
+      if (this.suckerPreview) {
+        // @ts-ignore
+        this.suckerPreview.removeEventListener('click', this.select)
+        this.container.removeChild(this.suckerPreview)
+        this.suckerPreview = null
+      }
+    },
     keydownHandler(e: any) {
       // esc
       if (e.keyCode === 27) {
-        this.isOpenSucker = false
-        this.$emit('openSucker', false)
-        document.removeEventListener('keydown', this.keydownHandler)
-        this.suckerPreview.removeEventListener('click', this.select)
-        if (this.suckerPreview) {
-          // @ts-ignore
-          this.container.removeChild(this.suckerPreview)
-          this.suckerPreview = null
-        }
+        this.destorySucker()
       }
     },
     getColor(x:number, y:number) {
@@ -146,6 +149,9 @@ export default defineComponent({
         this.$emit('selectSucker', { r, g, b, a })
     },
   },
+  unmounted() {
+    this.destorySucker()
+  }
 })
 </script>
 
