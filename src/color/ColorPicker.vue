@@ -37,6 +37,7 @@
       <Sucker
         v-if="!suckerHide"
         :sucker-canvas="suckerCanvas"
+        :sucker-position="suckerPosition"
         @openSucker="openSucker"
         @selectSucker="selectSucker"
       />
@@ -93,6 +94,10 @@ export default defineComponent({
     suckerCanvas: {
       type: null, // HTMLCanvasElement
       default: null,
+    },
+    suckerPosition: {
+      type:null,
+      default: null
     },
     colorsDefault: {
       type: Array,
