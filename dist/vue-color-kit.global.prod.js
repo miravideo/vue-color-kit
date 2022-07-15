@@ -867,7 +867,7 @@ var VueColorKit = (function (e, t) {
         'div',
         {
           class: ['hu-color-picker', { light: e.isLightTheme }],
-          style: { width: e.totalWidth + 'px' },
+          style: { width: '220px' },
         },
         [
           t.createVNode('div', b, [
@@ -980,7 +980,7 @@ var VueColorKit = (function (e, t) {
           t.createCommentVNode(' custom options '),
           t.renderSlot(e.$slots, 'default'),
         ],
-        6
+        2
       )
     )
   }),

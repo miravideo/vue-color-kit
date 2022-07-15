@@ -2,7 +2,7 @@
   <div
     class="hu-color-picker"
     :class="{ light: isLightTheme }"
-    :style="{ width: totalWidth + 'px' }"
+    :style="{ width: 220 + 'px' }"
   >
     <div class="color-set">
       <Saturation
@@ -293,6 +293,7 @@ export default defineComponent({
   background: #1d2024;
   border-radius: 4px;
   box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.16);
+  width: 220px;
   z-index: 1;
   &.light {
     background: #f7f8f9;

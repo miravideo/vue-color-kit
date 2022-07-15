@@ -1165,7 +1165,7 @@ var VueColorKit = (function (exports, vue) {
         'div',
         {
           class: ['hu-color-picker', { light: _ctx.isLightTheme }],
-          style: { width: _ctx.totalWidth + 'px' },
+          style: { width: 220 + 'px' },
         },
         [
           vue.createVNode('div', _hoisted_1$6, [
@@ -1289,7 +1289,7 @@ var VueColorKit = (function (exports, vue) {
           vue.createCommentVNode(' custom options '),
           vue.renderSlot(_ctx.$slots, 'default'),
         ],
-        6 /* CLASS, STYLE */
+        2 /* CLASS */
       )
     )
   }
