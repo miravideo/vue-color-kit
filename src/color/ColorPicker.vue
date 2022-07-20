@@ -2,7 +2,6 @@
   <div
     class="hu-color-picker"
     :class="{ light: isLightTheme }"
-    :style="{ width: 220 + 'px' }"
   >
     <div class="color-set">
       <Saturation

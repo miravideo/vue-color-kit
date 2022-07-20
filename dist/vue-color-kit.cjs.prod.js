@@ -1,5 +1,5 @@
 /*!
- * vue-color-kit v1.0.5
+ * vue-color-kit v1.0.7
  * (c) 2022
  * @license MIT
  */
@@ -1160,7 +1160,6 @@ function render$7(_ctx, _cache, $props, $setup, $data, $options) {
       'div',
       {
         class: ['hu-color-picker', { light: _ctx.isLightTheme }],
-        style: { width: 220 + 'px' },
       },
       [
         vue.createVNode('div', _hoisted_1$6, [

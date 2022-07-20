@@ -1,5 +1,5 @@
 /*!
- * vue-color-kit v1.0.5
+ * vue-color-kit v1.0.7
  * (c) 2022
  * @license MIT
  */
@@ -865,10 +865,7 @@ var VueColorKit = (function (e, t) {
       t.openBlock(),
       t.createBlock(
         'div',
-        {
-          class: ['hu-color-picker', { light: e.isLightTheme }],
-          style: { width: '220px' },
-        },
+        { class: ['hu-color-picker', { light: e.isLightTheme }] },
         [
           t.createVNode('div', b, [
             t.createVNode(
