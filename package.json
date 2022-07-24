@@ -1,6 +1,6 @@
 {
   "name": "vue-color-kit",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Vue color picker",
   "main": "dist/vue-color-kit.cjs.js",
   "unpkg": "dist/vue-color-kit.global.js",
@@ -106,10 +106,7 @@
     "url": "https://github.com/anish2690/vue-color-kit/issues"
   },
   "sideEffects": [
-    "dist/*",
-    "es/**/style/*",
-    "lib/**/style/*",
-    "*.less"
+    "dist/*"
   ],
   "homepage": "https://github.com/anish2690/vue-color-kit#readme"
 }
