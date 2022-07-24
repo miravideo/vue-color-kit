@@ -7,7 +7,6 @@
   "jsdelivr": "dist/vue-color-kit.global.js",
   "module": "dist/vue-color-kit.esm-bundler.js",
   "types": "dist/vue-color-kit.d.ts",
-  "sideEffects": false,
   "author": "Anish George <anishgeorge2690@gmail.com>",
   "scripts": {
     "dev": "vite serve",
@@ -106,5 +105,11 @@
   "bugs": {
     "url": "https://github.com/anish2690/vue-color-kit/issues"
   },
+  "sideEffects": [
+    "dist/*",
+    "es/**/style/*",
+    "lib/**/style/*",
+    "*.less"
+  ],
   "homepage": "https://github.com/anish2690/vue-color-kit#readme"
 }
