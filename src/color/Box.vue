@@ -3,7 +3,7 @@
     <span class="name">
       {{ name }}
     </span>
-    <input v-model="modelColor" class="value" />
+    <input v-model="modelColor" @keydown="stop" class="value" />
   </div>
 </template>
 
@@ -19,6 +19,11 @@ export default defineComponent({
     color: {
       type: String,
       default: '',
+    },
+  },
+  methods: {
+    stop(e:any){
+      e.stopPropagation();
     },
   },
   emits: ['inputColor'],

@@ -1,5 +1,5 @@
 /*!
- * vue-color-kit v1.0.7
+ * vue-color-kit v1.0.8
  * (c) 2022
  * @license MIT
  */
@@ -720,6 +720,11 @@ var script$5 = vue.defineComponent({
       default: '',
     },
   },
+  methods: {
+    stop(e) {
+      e.stopPropagation()
+    },
+  },
   emits: ['inputColor'],
   setup(props, { emit }) {
     const modelColor = vue.computed({
@@ -755,10 +760,13 @@ function render$5(_ctx, _cache, $props, $setup, $data, $options) {
           {
             'onUpdate:modelValue':
               _cache[1] || (_cache[1] = ($event) => (_ctx.modelColor = $event)),
+            onKeydown:
+              _cache[2] ||
+              (_cache[2] = (...args) => _ctx.stop && _ctx.stop(...args)),
             class: 'value',
           },
           null,
-          512 /* NEED_PATCH */
+          544 /* HYDRATE_EVENTS, NEED_PATCH */
         ),
         [[vue.vModelText, _ctx.modelColor]]
       ),

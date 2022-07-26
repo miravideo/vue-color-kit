@@ -14,7 +14,9 @@ declare const _default: import('vue').DefineComponent<
   },
   unknown,
   {},
-  {},
+  {
+    stop(e: any): void
+  },
   import('vue').ComponentOptionsMixin,
   import('vue').ComponentOptionsMixin,
   'inputColor'[],
