@@ -5,10 +5,12 @@
         v-for="item in colorsDefault"
         :key="item"
         class="item"
+        :class="item ? 'item' : 'item border1'"
         @click="selectColor(item)"
       >
-        <div :style="{ background: `url(${imgAlphaBase64})` }" class="alpha" />
-        <div :style="{ background: item }" class="color" />
+	      <div v-if="item" :style="{ background: `url(${imgAlphaBase64})` }" class="alpha" />
+	      <div v-if="item" :style="{ background: item }" class="color" />
+	      <div v-else class="none" />
       </li>
     </ul>
     <ul v-if="colorsHistory.length" class="colors history">
@@ -100,7 +102,12 @@ export default defineComponent({
     margin-top: 10px;
     border-top: 1px solid #2e333a;
   }
-  .item {
+	
+	.border1 {
+		border: 1px solid hsla(0,0%,100%,.5);
+	}
+	
+	.item {
     position: relative;
     width: 16px;
     height: 16px;
@@ -117,6 +124,19 @@ export default defineComponent({
     &:hover {
       transform: scale(1.4);
     }
+		
+		.none {
+			content:"";
+			position:absolute;
+			left:47%;
+			top:-40%;
+			width:100%;
+			height:100%;
+			box-sizing:border-box;
+			border-bottom:1px solid darkred;
+			transform:rotateZ(45deg) scale(1.3);
+		}
+		
     .alpha {
       height: 100%;
       border-radius: 4px;

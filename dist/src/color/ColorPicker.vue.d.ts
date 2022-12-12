@@ -43,6 +43,7 @@ declare const _default: import('vue').DefineComponent<
     h: number
     s: number
     v: number
+    noneColor: boolean
   },
   {
     isLightTheme(): boolean

@@ -101,7 +101,7 @@ export default defineComponent({
     colorsDefault: {
       type: Array,
       default: () => [
-        '#000000',
+        '',
         '#FFFFFF',
         '#FF1900',
         '#F47365',
@@ -138,6 +138,7 @@ export default defineComponent({
       h: 0,
       s: 0,
       v: 0,
+	    noneColor: true,
     }
   },
   computed: {
@@ -184,6 +185,7 @@ export default defineComponent({
 
     this.$watch('rgba', () => {
       this.$emit('changeColor', {
+	      noneColor: this.noneColor,
         rgba: this.rgba,
         hsv: this.hsv,
         hex: this.modelHex,
@@ -267,6 +269,7 @@ export default defineComponent({
       })
     },
     selectColor(color: string) {
+	    this.noneColor = (color === '');
       const { r, g, b, a, h, s, v } = setColorValue(color)
       Object.assign(this, { r, g, b, a, h, s, v })
       this.setText()

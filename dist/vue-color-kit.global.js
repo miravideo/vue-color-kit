@@ -1,5 +1,5 @@
 /*!
- * vue-color-kit v1.0.8
+ * vue-color-kit v1.0.10
  * (c) 2022
  * @license MIT
  */
@@ -842,6 +842,10 @@ var VueColorKit = (function (exports, vue) {
 
   const _hoisted_1$5 = { class: 'colors' }
   const _hoisted_2$1 = {
+    key: 2,
+    class: 'none',
+  }
+  const _hoisted_3 = {
     key: 0,
     class: 'colors history',
   }
@@ -862,30 +866,40 @@ var VueColorKit = (function (exports, vue) {
                   'li',
                   {
                     key: item,
-                    class: 'item',
+                    class: ['item', item ? 'item' : 'item border1'],
                     onClick: ($event) => _ctx.selectColor(item),
                   },
                   [
-                    vue.createVNode(
-                      'div',
-                      {
-                        style: { background: `url(${_ctx.imgAlphaBase64})` },
-                        class: 'alpha',
-                      },
-                      null,
-                      4 /* STYLE */
-                    ),
-                    vue.createVNode(
-                      'div',
-                      {
-                        style: { background: item },
-                        class: 'color',
-                      },
-                      null,
-                      4 /* STYLE */
-                    ),
+                    item
+                      ? (vue.openBlock(),
+                        vue.createBlock(
+                          'div',
+                          {
+                            key: 0,
+                            style: {
+                              background: `url(${_ctx.imgAlphaBase64})`,
+                            },
+                            class: 'alpha',
+                          },
+                          null,
+                          4 /* STYLE */
+                        ))
+                      : vue.createCommentVNode('v-if', true),
+                    item
+                      ? (vue.openBlock(),
+                        vue.createBlock(
+                          'div',
+                          {
+                            key: 1,
+                            style: { background: item },
+                            class: 'color',
+                          },
+                          null,
+                          4 /* STYLE */
+                        ))
+                      : (vue.openBlock(), vue.createBlock('div', _hoisted_2$1)),
                   ],
-                  8 /* PROPS */,
+                  10 /* CLASS, PROPS */,
                   ['onClick']
                 )
               )
@@ -895,7 +909,7 @@ var VueColorKit = (function (exports, vue) {
         ]),
         _ctx.colorsHistory.length
           ? (vue.openBlock(),
-            vue.createBlock('ul', _hoisted_2$1, [
+            vue.createBlock('ul', _hoisted_3, [
               (vue.openBlock(true),
               vue.createBlock(
                 vue.Fragment,
@@ -983,7 +997,7 @@ var VueColorKit = (function (exports, vue) {
       colorsDefault: {
         type: Array,
         default: () => [
-          '#000000',
+          '',
           '#FFFFFF',
           '#FF1900',
           '#F47365',
@@ -1020,6 +1034,7 @@ var VueColorKit = (function (exports, vue) {
         h: 0,
         s: 0,
         v: 0,
+        noneColor: true,
       }
     },
     computed: {
@@ -1065,6 +1080,7 @@ var VueColorKit = (function (exports, vue) {
       this.setText()
       this.$watch('rgba', () => {
         this.$emit('changeColor', {
+          noneColor: this.noneColor,
           rgba: this.rgba,
           hsv: this.hsv,
           hex: this.modelHex,
@@ -1141,6 +1157,7 @@ var VueColorKit = (function (exports, vue) {
         })
       },
       selectColor(color) {
+        this.noneColor = color === ''
         const { r, g, b, a, h, s, v } = setColorValue(color)
         Object.assign(this, { r, g, b, a, h, s, v })
         this.setText()

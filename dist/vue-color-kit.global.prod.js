@@ -1,5 +1,5 @@
 /*!
- * vue-color-kit v1.0.8
+ * vue-color-kit v1.0.10
  * (c) 2022
  * @license MIT
  */
@@ -23,7 +23,7 @@ var VueColorKit = (function (e, t) {
       ? (t = i(`rgba(${e})`))
       : '[object Object]' === Object.prototype.toString.call(e) && (t = e)
     const { r: o, g: r, b: s, a: l } = t,
-      { h: n, s: a, v: c } = (function ({ r: e, g: t, b: o }) {
+      { h: n, s: c, v: a } = (function ({ r: e, g: t, b: o }) {
         ;(e /= 255), (t /= 255), (o /= 255)
         const r = Math.max(e, t, o),
           s = Math.min(e, t, o),
@@ -38,10 +38,10 @@ var VueColorKit = (function (e, t) {
           : r === o && (l = (60 * (e - t)) / i + 240)
         l = Math.floor(l)
         let n = parseFloat((0 === r ? 0 : 1 - s / r).toFixed(2)),
-          a = parseFloat(r.toFixed(2))
-        return { h: l, s: n, v: a }
+          c = parseFloat(r.toFixed(2))
+        return { h: l, s: n, v: c }
       })(t)
-    return { r: o, g: r, b: s, a: void 0 === l ? 1 : l, h: n, s: a, v: c }
+    return { r: o, g: r, b: s, a: void 0 === l ? 1 : l, h: n, s: c, v: a }
   }
   function r(e) {
     const t = document.createElement('canvas'),
@@ -126,8 +126,8 @@ var VueColorKit = (function (e, t) {
                 1,
                 1
               ),
-              [n, a, c] = l.data
-            this.$emit('selectSaturation', { r: n, g: a, b: c })
+              [n, c, a] = l.data
+            this.$emit('selectSaturation', { r: n, g: c, b: a })
           }
         s(e)
         const i = () => {
@@ -168,7 +168,7 @@ var VueColorKit = (function (e, t) {
     )
   }),
     (l.__file = 'src/color/Saturation.vue')
-  var a = t.defineComponent({
+  var c = t.defineComponent({
     props: {
       hsv: { type: Object, default: null },
       width: { type: Number, default: 15 },
@@ -224,8 +224,8 @@ var VueColorKit = (function (e, t) {
       },
     },
   })
-  const c = { ref: 'canvasHue' }
-  ;(a.render = function (e, o, r, s, i, l) {
+  const a = { ref: 'canvasHue' }
+  ;(c.render = function (e, o, r, s, i, l) {
     return (
       t.openBlock(),
       t.createBlock(
@@ -240,7 +240,7 @@ var VueColorKit = (function (e, t) {
             )),
         },
         [
-          t.createVNode('canvas', c, null, 512),
+          t.createVNode('canvas', a, null, 512),
           t.createVNode(
             'div',
             { style: e.slideHueStyle, class: 'slide' },
@@ -252,7 +252,7 @@ var VueColorKit = (function (e, t) {
       )
     )
   }),
-    (a.__file = 'src/color/Hue.vue')
+    (c.__file = 'src/color/Hue.vue')
   var h = t.defineComponent({
     props: {
       color: { type: String, default: '#000000' },
@@ -408,11 +408,11 @@ var VueColorKit = (function (e, t) {
           i = o - 5
         for (let e = t - 5; e <= t + 5; e++)
           for (let l = o - 5; l <= o + 5; l++) {
-            const { r: n, g: a, b: c, a: h } = this.getColor(e, l)
-            r.fillStyle = `rgba(${n}, ${a}, ${c}, ${h})`
+            const { r: n, g: c, b: a, a: h } = this.getColor(e, l)
+            r.fillStyle = `rgba(${n}, ${c}, ${a}, ${h})`
             const u = [10 * (e - s), 10 * (l - i), 10, 10]
             if ((r.fillRect(...u), e === t && l === o)) {
-              ;(this.color = { r: n, g: a, b: c, a: h }),
+              ;(this.color = { r: n, g: c, b: a, a: h }),
                 (r.strokeStyle = '#000')
               r.strokeRect(...[u[0], u[1], u[2] - 1, u[3] - 1])
             }
@@ -601,7 +601,8 @@ var VueColorKit = (function (e, t) {
     },
   })
   const k = { class: 'colors' },
-    C = { key: 0, class: 'colors history' }
+    C = { key: 2, class: 'none' },
+    y = { key: 0, class: 'colors history' }
   ;(f.render = function (e, o, r, s, i, l) {
     return (
       t.openBlock(),
@@ -617,25 +618,36 @@ var VueColorKit = (function (e, t) {
                 t.openBlock(),
                 t.createBlock(
                   'li',
-                  { key: o, class: 'item', onClick: (t) => e.selectColor(o) },
+                  {
+                    key: o,
+                    class: ['item', o ? 'item' : 'item border1'],
+                    onClick: (t) => e.selectColor(o),
+                  },
                   [
-                    t.createVNode(
-                      'div',
-                      {
-                        style: { background: `url(${e.imgAlphaBase64})` },
-                        class: 'alpha',
-                      },
-                      null,
-                      4
-                    ),
-                    t.createVNode(
-                      'div',
-                      { style: { background: o }, class: 'color' },
-                      null,
-                      4
-                    ),
+                    o
+                      ? (t.openBlock(),
+                        t.createBlock(
+                          'div',
+                          {
+                            key: 0,
+                            style: { background: `url(${e.imgAlphaBase64})` },
+                            class: 'alpha',
+                          },
+                          null,
+                          4
+                        ))
+                      : t.createCommentVNode('v-if', !0),
+                    o
+                      ? (t.openBlock(),
+                        t.createBlock(
+                          'div',
+                          { key: 1, style: { background: o }, class: 'color' },
+                          null,
+                          4
+                        ))
+                      : (t.openBlock(), t.createBlock('div', C)),
                   ],
-                  8,
+                  10,
                   ['onClick']
                 )
               )
@@ -645,7 +657,7 @@ var VueColorKit = (function (e, t) {
         ]),
         e.colorsHistory.length
           ? (t.openBlock(),
-            t.createBlock('ul', C, [
+            t.createBlock('ul', y, [
               (t.openBlock(!0),
               t.createBlock(
                 t.Fragment,
@@ -691,10 +703,10 @@ var VueColorKit = (function (e, t) {
     )
   }),
     (f.__file = 'src/color/Colors.vue')
-  var y = t.defineComponent({
+  var b = t.defineComponent({
     components: {
       Saturation: l,
-      Hue: a,
+      Hue: c,
       Alpha: h,
       Preview: d,
       Sucker: p,
@@ -711,7 +723,7 @@ var VueColorKit = (function (e, t) {
       colorsDefault: {
         type: Array,
         default: () => [
-          '#000000',
+          '',
           '#FFFFFF',
           '#FF1900',
           '#F47365',
@@ -744,6 +756,7 @@ var VueColorKit = (function (e, t) {
       h: 0,
       s: 0,
       v: 0,
+      noneColor: !0,
     }),
     computed: {
       isLightTheme() {
@@ -783,6 +796,7 @@ var VueColorKit = (function (e, t) {
         this.setText(),
         this.$watch('rgba', () => {
           this.$emit('changeColor', {
+            noneColor: this.noneColor,
             rgba: this.rgba,
             hsv: this.hsv,
             hex: this.modelHex,
@@ -808,8 +822,8 @@ var VueColorKit = (function (e, t) {
         ;(this.a = e), this.setText()
       },
       inputHex(e) {
-        const { r: t, g: r, b: s, a: i, h: l, s: n, v: a } = o(e)
-        Object.assign(this, { r: t, g: r, b: s, a: i, h: l, s: n, v: a }),
+        const { r: t, g: r, b: s, a: i, h: l, s: n, v: c } = o(e)
+        Object.assign(this, { r: t, g: r, b: s, a: i, h: l, s: n, v: c }),
           (this.modelHex = e),
           (this.modelRgba = this.rgbaStringShort),
           this.$nextTick(() => {
@@ -819,8 +833,8 @@ var VueColorKit = (function (e, t) {
           })
       },
       inputRgba(e) {
-        const { r: t, g: r, b: s, a: i, h: l, s: n, v: a } = o(e)
-        Object.assign(this, { r: t, g: r, b: s, a: i, h: l, s: n, v: a }),
+        const { r: t, g: r, b: s, a: i, h: l, s: n, v: c } = o(e)
+        Object.assign(this, { r: t, g: r, b: s, a: i, h: l, s: n, v: c }),
           (this.modelHex = this.hexString),
           (this.modelRgba = e),
           this.$nextTick(() => {
@@ -837,8 +851,8 @@ var VueColorKit = (function (e, t) {
         this.$emit('openSucker', e)
       },
       selectSucker(e) {
-        const { r: t, g: r, b: s, a: i, h: l, s: n, v: a } = o(e)
-        Object.assign(this, { r: t, g: r, b: s, a: i, h: l, s: n, v: a }),
+        const { r: t, g: r, b: s, a: i, h: l, s: n, v: c } = o(e)
+        Object.assign(this, { r: t, g: r, b: s, a: i, h: l, s: n, v: c }),
           this.setText(),
           this.$nextTick(() => {
             this.$refs.saturation.renderColor(),
@@ -847,8 +861,9 @@ var VueColorKit = (function (e, t) {
           })
       },
       selectColor(e) {
-        const { r: t, g: r, b: s, a: i, h: l, s: n, v: a } = o(e)
-        Object.assign(this, { r: t, g: r, b: s, a: i, h: l, s: n, v: a }),
+        this.noneColor = '' === e
+        const { r: t, g: r, b: s, a: i, h: l, s: n, v: c } = o(e)
+        Object.assign(this, { r: t, g: r, b: s, a: i, h: l, s: n, v: c }),
           this.setText(),
           this.$nextTick(() => {
             this.$refs.saturation.renderColor(),
@@ -858,11 +873,11 @@ var VueColorKit = (function (e, t) {
       },
     },
   })
-  const b = { class: 'color-set' }
-  ;(y.render = function (e, o, r, s, i, l) {
+  const w = { class: 'color-set' }
+  ;(b.render = function (e, o, r, s, i, l) {
     const n = t.resolveComponent('Saturation'),
-      a = t.resolveComponent('Hue'),
-      c = t.resolveComponent('Alpha'),
+      c = t.resolveComponent('Hue'),
+      a = t.resolveComponent('Alpha'),
       h = t.resolveComponent('Preview'),
       u = t.resolveComponent('Sucker'),
       d = t.resolveComponent('Box'),
@@ -873,7 +888,7 @@ var VueColorKit = (function (e, t) {
         'div',
         { class: ['hu-color-picker', { light: e.isLightTheme }] },
         [
-          t.createVNode('div', b, [
+          t.createVNode('div', w, [
             t.createVNode(
               n,
               {
@@ -888,7 +903,7 @@ var VueColorKit = (function (e, t) {
               ['color', 'hsv', 'size', 'onSelectSaturation']
             ),
             t.createVNode(
-              a,
+              c,
               {
                 ref: 'hue',
                 hsv: e.hsv,
@@ -901,7 +916,7 @@ var VueColorKit = (function (e, t) {
               ['hsv', 'width', 'height', 'onSelectHue']
             ),
             t.createVNode(
-              c,
+              a,
               {
                 ref: 'alpha',
                 color: e.rgbString,
@@ -987,18 +1002,18 @@ var VueColorKit = (function (e, t) {
       )
     )
   }),
-    (y.__file = 'src/color/ColorPicker.vue'),
-    (y.install = (e) => {
-      e.component(y.name, y)
+    (b.__file = 'src/color/ColorPicker.vue'),
+    (b.install = (e) => {
+      e.component(b.name, b)
     })
-  var w = {
+  var F = {
     install: function (e) {
-      e.component(y.name, y)
+      e.component(b.name, b)
     },
   }
   return (
-    (e.ColorPicker = y),
-    (e.default = w),
+    (e.ColorPicker = b),
+    (e.default = F),
     Object.defineProperty(e, '__esModule', { value: !0 }),
     e
   )
