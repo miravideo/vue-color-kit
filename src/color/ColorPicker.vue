@@ -138,7 +138,7 @@ export default defineComponent({
       h: 0,
       s: 0,
       v: 0,
-	    noneColor: true,
+	    noneColor: false,
     }
   },
   computed: {
@@ -194,7 +194,8 @@ export default defineComponent({
   },
   methods: {
     selectSaturation(color: any) {
-      const { r, g, b, h, s, v } = setColorValue(color)
+	    this.noneColor = (color === '');
+	    const { r, g, b, h, s, v } = setColorValue(color)
       Object.assign(this, { r, g, b, h, s, v })
       this.setText()
     },

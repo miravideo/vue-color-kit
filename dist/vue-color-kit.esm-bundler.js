@@ -1,5 +1,5 @@
 /*!
- * vue-color-kit v1.0.10
+ * vue-color-kit v1.0.12
  * (c) 2022
  * @license MIT
  */
@@ -1035,7 +1035,7 @@ var script$7 = defineComponent({
       h: 0,
       s: 0,
       v: 0,
-      noneColor: true,
+      noneColor: false,
     }
   },
   computed: {
@@ -1090,6 +1090,7 @@ var script$7 = defineComponent({
   },
   methods: {
     selectSaturation(color) {
+      this.noneColor = color === ''
       const { r, g, b, h, s, v } = setColorValue(color)
       Object.assign(this, { r, g, b, h, s, v })
       this.setText()

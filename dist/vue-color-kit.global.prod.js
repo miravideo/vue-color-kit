@@ -1,5 +1,5 @@
 /*!
- * vue-color-kit v1.0.10
+ * vue-color-kit v1.0.12
  * (c) 2022
  * @license MIT
  */
@@ -756,7 +756,7 @@ var VueColorKit = (function (e, t) {
       h: 0,
       s: 0,
       v: 0,
-      noneColor: !0,
+      noneColor: !1,
     }),
     computed: {
       isLightTheme() {
@@ -805,6 +805,7 @@ var VueColorKit = (function (e, t) {
     },
     methods: {
       selectSaturation(e) {
+        this.noneColor = '' === e
         const { r: t, g: r, b: s, h: i, s: l, v: n } = o(e)
         Object.assign(this, { r: t, g: r, b: s, h: i, s: l, v: n }),
           this.setText()
